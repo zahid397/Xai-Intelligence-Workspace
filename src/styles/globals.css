@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-void text-ink-100 antialiased;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.35);
+  color: #f8fafc;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #050816;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 999px;
+  border: 2px solid #050816;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
+}
+
+@layer utilities {
+  /* Dark-tinted glass (slate-900 base), not white-tinted — a white overlay
+     on a dark background is what was reading as "milky"/overexposed.
+     Exact values per the visual-system fix. */
+  .glass {
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  }
+  /* Slightly more opaque/blurred variant for content that floats above
+     everything else (modals, drawers, dropdowns) — same family, not a
+     different (brighter) material. */
+  .glass-strong {
+    background: rgba(15, 23, 42, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  }
+  .text-gradient {
+    @apply bg-signal-gradient bg-clip-text text-transparent;
+  }
+}
+
+/* Respect prefers-reduced-motion globally: neutralize CSS transitions/animations
+   for anyone who has this set. Component-level JS animation (Framer/GSAP/R3F)
+   is separately gated via the useReducedMotion hook — this covers pure-CSS
+   motion that hook can't reach. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -128,5 +128,4 @@ npm install
 npm run dev
 ```
 Then hard-refresh the browser tab (Ctrl+Shift+R / Cmd+Shift+R) or open it in a fresh incognito window. This guarantees you're seeing the current code, not a cached build.
-#   X a i - I n t e l l i g e n c e - W o r k s p a c e  
- 
+#
